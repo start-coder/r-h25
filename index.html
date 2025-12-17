@@ -2,14 +2,22 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hermine & Ramzy ❤️</title>
 
 <style>
+/* RESET */
+* { box-sizing: border-box; }
+
+/* FOND ROMANTIQUE LÉGER */
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  font-family: 'Poppins', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,120,150,0.35), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255,200,220,0.25), transparent 45%),
+    linear-gradient(180deg, #0f0c29, #302b63, #3a1c71);
+  font-family: 'Poppins', system-ui, sans-serif;
   color: white;
   display: flex;
   justify-content: center;
@@ -17,62 +25,89 @@ body {
   overflow: hidden;
 }
 
-.container {
+/* PARTICULES DOUCES (CSS ONLY) */
+body::before, body::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(white 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.08;
+  animation: float 120s linear infinite;
+}
+
+body::after {
+  animation-duration: 180s;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-500px); }
+}
+
+/* CONTENEUR */
+.screen {
   text-align: center;
-  max-width: 90%;
-  animation: fadeIn 2s ease;
+  padding: 25px;
+  max-width: 500px;
+  width: 100%;
+  animation: fade 1.4s ease;
 }
 
 .hidden { display: none; }
 
 h1 {
-  font-size: 30px;
+  font-size: 44px;
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .names {
-  font-size: 26px;
+  font-size: 38px;
   letter-spacing: 3px;
-  margin-bottom: 20px;
-}
-
-#countdown {
-  font-size: 42px;
-  font-weight: bold;
-  margin: 20px 0;
+  margin-bottom: 30px;
 }
 
 .text {
-  font-size: 18px;
-  opacity: 0.9;
-  line-height: 1.6;
+  font-size: 22px;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+#countdown {
+  font-size: 58px;
+  font-weight: 700;
+  margin: 30px 0;
+  letter-spacing: 2px;
 }
 
 button {
-  margin-top: 30px;
-  padding: 12px 30px;
-  font-size: 16px;
+  margin-top: 40px;
+  padding: 16px 45px;
+  font-size: 20px;
+  border-radius: 50px;
   border: none;
-  border-radius: 30px;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  color: white;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  color: #3a1c71;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform .2s ease;
 }
 
-button:hover {
-  transform: scale(1.05);
+button:active {
+  transform: scale(0.96);
 }
 
 .heart {
-  font-size: 38px;
-  margin-top: 20px;
-  animation: beat 1.4s infinite;
+  font-size: 52px;
+  margin-top: 35px;
+  animation: beat 1.3s infinite;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
+/* ANIMATIONS */
+@keyframes fade {
+  from { opacity: 0; transform: translateY(25px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -86,77 +121,78 @@ button:hover {
 
 <body>
 
-<!-- ÉTAPE 1 -->
-<div class="container" id="step1">
-  <h1>Parfois…</h1>
+<!-- ÉCRAN 1 -->
+<div class="screen" id="s1">
+  <h1>Il y a des moments…</h1>
   <div class="text">
-    Certains moments méritent<br>
-    qu’on les attende un peu.
+    Qu’on n’annonce pas.<br>
+    Qu’on attend en silence.
   </div>
-  <button onclick="nextStep(2)">Continuer</button>
+  <button onclick="go(2)">Continuer</button>
 </div>
 
-<!-- ÉTAPE 2 -->
-<div class="container hidden" id="step2">
+<!-- ÉCRAN 2 -->
+<div class="screen hidden" id="s2">
   <h1>Deux prénoms</h1>
-  <div class="names">Hermine ✨ Ramzy</div>
+  <div class="names">Hermine ❤️ Ramzy</div>
   <div class="text">
-    Une date.<br>
-    Une soirée pas comme les autres.
+    Et une envie simple.<br>
+    Être là.
   </div>
-  <button onclick="nextStep(3)">Découvrir</button>
+  <button onclick="go(3)">Voir la date</button>
 </div>
 
-<!-- ÉTAPE 3 -->
-<div class="container hidden" id="step3">
+<!-- ÉCRAN 3 -->
+<div class="screen hidden" id="s3">
   <h1>Le compte à rebours</h1>
   <div id="countdown">...</div>
   <div class="text">
     24 décembre 2025<br>
     À 22h00 précises.
   </div>
-  <button onclick="nextStep(4)">Encore un peu…</button>
+  <button onclick="go(4)">Dernier mot</button>
 </div>
 
-<!-- ÉTAPE 4 -->
-<div class="container hidden" id="step4">
+<!-- ÉCRAN 4 -->
+<div class="screen hidden" id="s4">
   <h1>Ce soir-là…</h1>
   <div class="text">
-    Je ne promets pas la perfection.<br>
-    Mais je promets d’être vraie.<br><br>
-    Et de vouloir être là.
+    Je ne promets pas le parfait.<br>
+    Je promets le vrai.<br><br>
+    Et mon envie d’être là,<br>
+    avec toi.
   </div>
   <div class="heart">❤️</div>
 </div>
 
 <script>
-function nextStep(step) {
-  document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
-  document.getElementById('step' + step).classList.remove('hidden');
+function go(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+  document.getElementById('s' + n).classList.remove('hidden');
 }
 
-// Date précise : 24 décembre 2025 à 22h00
-const targetDate = new Date("December 24, 2025 22:00:00");
+// Date exacte
+const target = new Date("2025-12-24T22:00:00");
 
-function updateCountdown() {
+function tick() {
   const now = new Date();
-  const diff = targetDate - now;
+  const d = target - now;
 
-  if (diff <= 0) {
-    document.getElementById("countdown").innerHTML = "C’est maintenant ❤️";
+  if (d <= 0) {
+    countdown.innerHTML = "C’est maintenant ❤️";
     return;
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const j = Math.floor(d / 86400000);
+  const h = Math.floor(d / 3600000) % 24;
+  const m = Math.floor(d / 60000) % 60;
+  const s = Math.floor(d / 1000) % 60;
 
-  document.getElementById("countdown").innerHTML =
-    `${days}j ${hours}h ${minutes}min`;
+  countdown.innerHTML = `${j}j ${h}h ${m}m ${s}s`;
 }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+tick();
+setInterval(tick, 1000);
 </script>
 
 </body>
