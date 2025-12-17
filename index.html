@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Hermine & Ramzy ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  font-family: 'Poppins', Arial, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  max-width: 90%;
+  animation: fadeIn 2s ease;
+}
+
+.hidden { display: none; }
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.names {
+  font-size: 26px;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+#countdown {
+  font-size: 42px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.text {
+  font-size: 18px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.heart {
+  font-size: 38px;
+  margin-top: 20px;
+  animation: beat 1.4s infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes beat {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  60% { transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ÉTAPE 1 -->
+<div class="container" id="step1">
+  <h1>Parfois…</h1>
+  <div class="text">
+    Certains moments méritent<br>
+    qu’on les attende un peu.
+  </div>
+  <button onclick="nextStep(2)">Continuer</button>
+</div>
+
+<!-- ÉTAPE 2 -->
+<div class="container hidden" id="step2">
+  <h1>Deux prénoms</h1>
+  <div class="names">Hermine ✨ Ramzy</div>
+  <div class="text">
+    Une date.<br>
+    Une soirée pas comme les autres.
+  </div>
+  <button onclick="nextStep(3)">Découvrir</button>
+</div>
+
+<!-- ÉTAPE 3 -->
+<div class="container hidden" id="step3">
+  <h1>Le compte à rebours</h1>
+  <div id="countdown">...</div>
+  <div class="text">
+    24 décembre 2025<br>
+    À 22h00 précises.
+  </div>
+  <button onclick="nextStep(4)">Encore un peu…</button>
+</div>
+
+<!-- ÉTAPE 4 -->
+<div class="container hidden" id="step4">
+  <h1>Ce soir-là…</h1>
+  <div class="text">
+    Je ne promets pas la perfection.<br>
+    Mais je promets d’être vraie.<br><br>
+    Et de vouloir être là.
+  </div>
+  <div class="heart">❤️</div>
+</div>
+
+<script>
+function nextStep(step) {
+  document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+  document.getElementById('step' + step).classList.remove('hidden');
+}
+
+// Date précise : 24 décembre 2025 à 22h00
+const targetDate = new Date("December 24, 2025 22:00:00");
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = targetDate - now;
+
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML = "C’est maintenant ❤️";
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `${days}j ${hours}h ${minutes}min`;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
